@@ -14,6 +14,8 @@ Uses cheerio as the core "scraper" for the page content.
 
 ## What's done?
 
+This is a bigger list than I originally intended. Can you say feature creep? 
+
 ### Scraper
 
 - [ x ] Write code to get images
@@ -22,8 +24,6 @@ Uses cheerio as the core "scraper" for the page content.
 - [ ] Send list of URLs to an endpoint to process them
 - [ ] Send list of images to an endpoint to process them
 - [ ] Have this process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
-- [ ] How to add code hooks, that allow adding in extra functionality dynamically without screwing up the source?
-  - [ ] obfuscate the github url code away from the html.links functionality
 
 ### Database
 
@@ -52,7 +52,6 @@ Uses cheerio as the core "scraper" for the page content.
 - [ ] Store them
 - [ ] Log which images were added/removed from this page
 
-
 ### Reports
 
 - [ ] Scraping report
@@ -79,9 +78,11 @@ Uses cheerio as the core "scraper" for the page content.
 
 Yeah, yeah, yeah, there are a million task managers. I am customizing and playing and linking. shhh... shhh.... It's going to be OK.
 
-#### v1
 - [ ] list all the tasks 
 
-#### later
+
+### later Stuff
 - [ ] watch for github issues with docs pages and add tasks automatically
-- [ ] watch speific private github repos for builds and make tasks from them to update documentation - prioritize at top of the list
+- [ ] watch specific private github repos for builds and make tasks from them to update documentation - prioritize at top of the task list
+- [ ] How to add code hooks, that allow adding in extra functionality dynamically without screwing up the source?
+  - [ ] obfuscate the github url code away from the html.links functionality
