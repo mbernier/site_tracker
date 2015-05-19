@@ -2,9 +2,10 @@
   "name"         : "site_tracker",
   "version"      : "0.0.1",
   "description"  : "Scrape and track elemented of a website",
+  "repository"   : { "type" : "git", "url" : "https://github.com/mbernier/site_tracker.git"}
   "main"         : "server.js",
   "author"       : "mbernier",
-  "files"        : ["./html.js"],
+  "files"        : ["./html.js", "./scrape.js", "./store.js"],
   "dependencies" : {
     "express"    : "latest",
     "request"    : "latest",
