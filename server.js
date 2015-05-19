@@ -1,12 +1,8 @@
 
-var html_parser = require('./html.js'),
-    store = require('./store.js'),
-    scrape = require('./scrape.js');
+var scrape = require('./lib/scrape.js');
 
 var express = require('express'),
-	fs = require('fs'),
-	request = require('request'),
-	cheerio = require('cheerio');
+	fs = require('fs');
 
 var app = express();
 
@@ -22,8 +18,6 @@ process.env['page_url'] = 'https://sendgrid.com/docs/Apps/index.html';
 var output = '';
 
 var serve = true;
-
-var $ = cheerio;
 
 app.get('/page/:id', function(req, res){
     /*
