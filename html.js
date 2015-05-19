@@ -1,6 +1,7 @@
 module.exports = {
 
     images: function (img_objs) {
+        var source_url = process.env['page_url'];
         var $ = require('cheerio');
         var imgs = [],
             output = '';;
@@ -22,7 +23,7 @@ module.exports = {
                     img_url = process.env['base_url'] + img_url;
                 }
 
-                output += "<a href='" + img_url + "'><img src='" + img_url + "' /></a>";
+                store.images(source_url, img_url);
             });
         }
         return output;
@@ -105,5 +106,58 @@ module.exports = {
             "<h2>On Docs links:</h2><p>Unique URLs:"+links['on'].length+"</p><ul>" + on_html + "</ul>";
 
         return output;
+    },
+    /*
+    If this is a redirect page, it returns false - otherwise, true
+     */
+    meta: function(meta_objs) {
+        var source_url = process.env['page_url'];
+
+        //these are the items we want to look for and record
+        var lookingFor = ['description', 'keywords'];
+
+        for (i=0;i<meta_objs.length;i++) {
+            var temp_el = $(meta_objs[i]);
+
+            //Check whether this is a redirect or not
+            if (temp_el.attr('http-equiv') == 'refresh') {
+
+                //this is a redirect page - get the URL from the content string which is supposed to be there with refresh meta
+
+                //check that the "=" is there, and grab the URL. Otherwise, log something
+                if (temp_el.attr('content').indexOf("=") != -1) {
+                    var redirect_url = temp_el.attr('content').split("=")[1];
+
+                    //store the redirect
+                    store.meta(source_url, 'redirect', redirect_url);
+                } else {
+
+                    //We're seemingly missing the redirect url, so record that.
+                    store.error(source_url, "Redirect URL Not Found, when it should have been there.", {"data": "content",
+                                                                                                        "value": temp_el.attr('content')});
+                }
+                return false; // we're done here
+            }
+
+            if (lookingFor.indexOf(item)) {
+                //store the meta information
+                store.meta(source_url, temp_el.attr('name'), temp_el.attr('content'));
+
+                //take this out of the list so we can record what we're missing
+                lookingFor.splice(temp_el.attr('name'), 1);
+
+            } else {
+                //Log the missing meta information in the log
+                store.error(source_url, 'Missing Meta', {"data": temp_el.attr('name'), "value": temp_el.attr('content')});
+            }
+        }
+
+        //make sure we write that we're missing data - this is not for the first scan as much as it is for all subsequent scans
+        for (i=0;i<lookingFor;i++) {
+            store.meta(source_url, lookingFor[i], null);
+        }
+
+        return true;
+
     }
 }
