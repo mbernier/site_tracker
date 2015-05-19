@@ -5,7 +5,7 @@ Store all the things in the database!
 module.exports = {
 
     //this is just a wrapper for the log method
-    error: function(source_url, note, data = null) {
+    error: function(source_url, note, data) {
         this.log(source_url, 'error', note, data);
     },
 
@@ -20,13 +20,13 @@ module.exports = {
     /*
     data should be {key: , value:}
      */
-    log: function(source_url, type, note, data = null) {
+    log: function(source_url, type, note, data) {
         //store this information in the log
 
     },
 
     //this is just a wrapper for the log method
-    message: function(source_url, note, data = null) {
+    message: function(source_url, note, data) {
         this.log(source_url, 'message', note, data);
     },
 
