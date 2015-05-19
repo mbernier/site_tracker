@@ -81,8 +81,14 @@ Yeah, yeah, yeah, there are a million task managers. I am customizing and playin
 - [ ] list all the tasks 
 
 
-### later Stuff
+### Later Stuff
+
+Monitoring
+
 - [ ] watch for github issues with docs pages and add tasks automatically
 - [ ] watch specific private github repos for builds and make tasks from them to update documentation - prioritize at top of the task list
+
+Extra Features
+
 - [ ] How to add code hooks, that allow adding in extra functionality dynamically without screwing up the source?
   - [ ] obfuscate the github url code away from the html.links functionality
