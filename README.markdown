@@ -20,11 +20,11 @@ This is a bigger list than I originally intended. Can you say feature creep?
 
 - [ x ] Write code to get images
 - [ x ] Write code to get links
+- [ x ] Write code to get meta information 
 - [ x ] Identify redirect HTML pages and where they redirect to
-- [ ] Send list of URLs to an endpoint to process them
-- [ ] Send list of images to an endpoint to process them
-- [ ] Have this process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
-- [ ] Identify .htaccess/other redirects
+- [ x ] Send list of URLs to an endpoint to process them
+- [ x ] Send list of images to an endpoint to process them
+- [ ] Have the scraper process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
 
 ### Database
 
@@ -42,7 +42,6 @@ This is a bigger list than I originally intended. Can you say feature creep?
 - [ ] Receive the source URL and the list of the urls for this page
 - [ ] Get the stored URLs for this page
 - [ ] Compare to what is in the database for this source URL
-- [ ] Store the data
 - [ ] Log which URLs were added/removed from this page
 
 ### Images
@@ -85,10 +84,15 @@ Yeah, yeah, yeah, there are a million task managers. I am customizing and playin
 
 ### Later Stuff
 
+Scraper
+
+- [ ] Identify .htaccess/other redirects
+
 Monitoring
 
 - [ ] watch for github issues with docs pages and add tasks automatically
 - [ ] watch specific private github repos for builds and make tasks from them to update documentation - prioritize at top of the task list
+
 
 Extra Features
 
