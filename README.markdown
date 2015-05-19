@@ -20,20 +20,22 @@ This is a bigger list than I originally intended. Can you say feature creep?
 
 - [ x ] Write code to get images
 - [ x ] Write code to get links
-- [ ] Identify redirect pages and where they redirect to
+- [ x ] Identify redirect HTML pages and where they redirect to
 - [ ] Send list of URLs to an endpoint to process them
 - [ ] Send list of images to an endpoint to process them
 - [ ] Have this process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
+- [ ] Identify .htaccess/other redirects
 
 ### Database
 
+- [ ] Replace strings with IDs in store.js
 - [ ] Create pages
   - [ ] account for github URLs
   - [ ] account for redirect pages
   - [ ] add page status: live, dark-deploy, abandoned, tentative-abandoned
 - [ ] Create images
 - [ ] Create tasks
-- [ ] Create a pages log table
+- [ ] Figure out how to log the data, whether one big stream that is searchable or...?
 
 ### URLs
 
