@@ -24,7 +24,7 @@ This is a bigger list than I originally intended. Can you say feature creep?
 - [ x ] Identify redirect HTML pages and where they redirect to
 - [ x ] Send list of URLs to an endpoint to process them
 - [ x ] Send list of images to an endpoint to process them
-- [ ] Have the scraper process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
+- [ ] Run through a list of URLs
 
 ### Database
 
@@ -60,7 +60,7 @@ This is a bigger list than I originally intended. Can you say feature creep?
   - [ ] If you go to /scrape and there's no URLs in the database, ask for a URL
     - [ ] store the URL and queue it for scraping
   - [ ] If there are URLs, show the scraping queue
-- [ ] Abandoned page report
+- [ ] Abandoned page report - a list of new pages discovered that can be marked as "dark deployed" or abandoned instead of tentative-abandoned.
 - [ ] All page report (how to do this so that it doesn't suck)
 - [ ] All tasks report
 - [ ] Images Report
@@ -98,3 +98,4 @@ Monitoring
 Scraper
 
 - [ ] Identify .htaccess/other redirects
+- [ ] Have the scraper process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
