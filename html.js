@@ -1,6 +1,6 @@
 module.exports = {
 
-    images: function (img_objs) {
+    images: function (img_objs, callback) {
         var source_url = process.env['page_url'];
         var $ = require('cheerio');
         var imgs = [],
@@ -26,10 +26,12 @@ module.exports = {
                 store.images(source_url, img_url);
             });
         }
-        return output;
+        if (callback) {
+            callback(output);
+        }
     },
 
-    links: function (link_objs) {
+    links: function (link_objs, callback) {
         var $ = require('cheerio');
 
         var on_html = '',
@@ -105,12 +107,15 @@ module.exports = {
         output += "<h2>Off Docs links:</h2><p>Unique URLs:"+links['off'].length+"</p><ul>" + off_html + "</ul>" +
             "<h2>On Docs links:</h2><p>Unique URLs:"+links['on'].length+"</p><ul>" + on_html + "</ul>";
 
-        return output;
+        if (callback) {
+            callback(output);
+        }
     },
     /*
-    If this is a redirect page, it returns false - otherwise, true
+        If there is a callback, it will pass the true/false there, otherwise it returns
+        If this is a redirect page, it returns false - otherwise, true
      */
-    meta: function(meta_objs) {
+    meta: function(meta_objs, callback) {
         var source_url = process.env['page_url'];
 
         //these are the items we want to look for and record
@@ -136,7 +141,12 @@ module.exports = {
                     store.error(source_url, "Redirect URL Not Found, when it should have been there.", {"data": "content",
                                                                                                         "value": temp_el.attr('content')});
                 }
-                return false; // we're done here
+
+                if (callback) {
+                    callback(false);
+                } else {
+                    return false; // we're done here
+                }
             }
 
             if (lookingFor.indexOf(item)) {
@@ -157,7 +167,10 @@ module.exports = {
             store.meta(source_url, lookingFor[i], null);
         }
 
-        return true;
-
+        if (callback) {
+            callback(true);
+        } else {
+            return true;
+        }
     }
 }
