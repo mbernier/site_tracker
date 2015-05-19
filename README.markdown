@@ -39,19 +39,20 @@ This is a bigger list than I originally intended. Can you say feature creep?
 
 ### URLs
 
-- [ ] Receive the source URL and the list of the urls for this page
-- [ ] Get the stored URLs for this page
+- [ x ] Receive the source URL and the list of the urls for this page
+- [ ] Get the stored URLs for this page from the database
 - [ ] Compare to what is in the database for this source URL
 - [ ] Log which URLs were added/removed from this page
 
 ### Images
  
-- [ ] Receive the source url and list of images for this page
-- [ ] Get the images for this source URL
+- [ x ] Receive the source url and list of images for this page
+- [ ] Get the images for this source URL from the database
 - [ ] Compare to what is in the database for this source URL, identify abandoned images?
     - [ ] Log which images are added and which are removed
 - [ ] Store them
 - [ ] Log which images were added/removed from this page
+- [ ] handle if there are no images on the page
 
 ### Reports
 
@@ -84,17 +85,16 @@ Yeah, yeah, yeah, there are a million task managers. I am customizing and playin
 
 ### Later Stuff
 
-Scraper
+Extra Features
 
-- [ ] Identify .htaccess/other redirects
+- [ ] How to add code hooks, that allow adding in extra functionality dynamically without screwing up the source?
+  - [ ] obfuscate the github url code away from the html.links functionality
 
 Monitoring
 
 - [ ] watch for github issues with docs pages and add tasks automatically
 - [ ] watch specific private github repos for builds and make tasks from them to update documentation - prioritize at top of the task list
 
+Scraper
 
-Extra Features
-
-- [ ] How to add code hooks, that allow adding in extra functionality dynamically without screwing up the source?
-  - [ ] obfuscate the github url code away from the html.links functionality
+- [ ] Identify .htaccess/other redirects
