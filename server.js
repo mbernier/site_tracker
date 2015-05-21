@@ -1,44 +1,100 @@
 
-var html_parser = require('./html.js');
+var scrape = require('./lib/scrape.js');
 
-var express = require('express'),
-	fs = require('fs'),
-	request = require('request'),
-	cheerio = require('cheerio');
+var bodyParser = require('body-parser'),
+    errorHandler = require('errorhandler'),
+    express = require('express'),
+    routes = require('./routes'),
+    http = require('http'),
+    path = require('path'),
+    methodOverride = require('method-override'),
+    mongoose = require('mongoose'),
+    morgan = require('morgan'),
+	fs = require('fs');
 
 var app = express();
 
+mongoose.connect('mongodb://localhost/site_tracker_development', function (err) {
+    if (!err) {
+        console.log('connected to MongoDB');
+    } else {
+        throw err;
+    }
+});
+
+/*
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+
+var Page = new Schema({
+    url: String,
+    title: String,
+    update: Date,
+    on_site_links: Array,
+    off_site_links: Array,
+    github_links: Array,
+    images: Array,
+    description: String,
+    keywords: String,
+    is_redirect: Bool,
+});
+
+var Task = new Schema({
+    name: String,
+    description: String,
+    url: String,
+    completion_status: Number
+});
+
+var Task = mongoose.model('Task', Task);
+*/
+
+
+
 //What is the base URL for the site? Used to determine on/off site links
-process.env['base_url'] = "BASE URL HERE";
+process.env['base_url'] = "https://sendgrid.com/docs/";
 
 //what is the GITHUB URL for your site? Used to find github links for this repo/file
-process.env['github_repo'] = "GITHUB URL HERE";
+process.env['github_repo'] = "https://github.com/sendgrid/docs";
 
 //the URL of the page we're scraping
-process.env['page_url'] = 'YOUR URL HERE';
+process.env['page_url'] = 'https://sendgrid.com/docs/Apps/index.html';
 
-var output = '';
+exports = module.exports = app;
 
-var serve = true;
+app.set('port', process.env.PORT || 4000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(express.static(path.join(__dirname, 'public')));
 
-var $ = cheerio;
+// development only
+if ('development' === app.get('env')) {
+    app.use(errorHandler());
+}
 
+app.get('/', routes.index);
 
 app.get('/page/:id', function(req, res){
     /*
      This should look up the info about the page:id and display it
-    */
+     */
 });
 
 app.get('/images', function(req, res){
-   /*
+    /*
      Show all the images in the docs
      */
 });
 
 app.get('/tasks', function(req, res) {
     /*
-    List all the tasks in order of score
+     List all the tasks in order of score
      */
 });
 
@@ -51,74 +107,32 @@ app.get('/task/:id', function(req, res) {
 app.post('/task', function(req, res) {
     /*
      accept a new task, calculate the score
-      */
-});
-
-
-app.get('/scrape', function(req, res) {
-    request(process.env['page_url'], function(error, response, html) {
-
-        if (error) {
-            console.error(error);
-        } else {
-
-            output += "<h2>Page</h2><a href=\""+process.env['page_url']+'">'+process.env['page_url']+'</a>';
-
-            $ = $.load(html);
-
-            /*
-                @todo is this a redirect page?
-                    Check for the signs of this being a redirect page - meta redirect and canonical
-                    Store on the page where this is redirecting to that there is a redirect pointing there.
-
-                @todo is this an abandoned page?
-                    Look at the flag for "status": live, dark-deploy, abandoned, tentative-abandoned
-                    If this page has "dark-deploy" get the menu from the page and parse it
-                    If this page has "abandoned" get the menu from the page and parse it
-                    If this page has no status flag or is "live":
-                        If menu list hash is not set:
-                            then get the links in the menu, sort and hash
-                        This should reference a menu object hash and compare to the menu going forward.
-                        If the menu hash is different
-                            it should re-parse the menu list for the differences (aka dark deploy or abandoned pages) and
-                              set the tentative-abandoned flag
-                        Otherwise,
-                            set the status page as "live"
-
-                @todo abandoned page report:
-                        The docs tracker user should be able to see a list of new pages where they can mark them as "dark deployed"
-                        or abandoned instead of tentative-abandoned.
-             */
-            var link_objs = $('a');
-            var img_objs = $('img');
-
-            output += html_parser.images(img_objs);
-
-            /*
-
-            Get the link information
-
-            */
-
-            output += html_parser.links(link_objs);
-
-        }
-
-        res.send(output);
-    });
-
-});
-
-app.post('/urls', function(req, res) {
-   /*
-    @todo this should get the ID of the page_url being scraped and all the new URLs:
-        - it should:
-            check whether each URL exists in the database
-            store if not, with association to the page
      */
 });
 
 
-    app.listen('4000')
-    console.log('Server running on http://localhost:4000');
-    exports = module.exports = app;
+app.get('/scrape', function(req, res) {
+    //calls the scraper for the URL in process.env['page_url']
+    scrape.page(process.env['page_url'], function(output) {
+        res.send(output);
+    });
+});
+
+app.post('/urls', function(req, res) {
+    /*
+     @todo this should get the ID of the page_url being scraped and all the new URLs:
+     - it should:
+     check whether each URL exists in the database
+     store if not, with association to the page
+     */
+});
+
+http.createServer(app).listen(app.get('port'), function(){
+    console.log('Express server listening on port ' + app.get('port'));
+});
+
+
+
+
+
+

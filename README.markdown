@@ -18,39 +18,41 @@ This is a bigger list than I originally intended. Can you say feature creep?
 
 ### Scraper
 
-- [ x ] Write code to get images
-- [ x ] Write code to get links
-- [ ] Identify redirect pages and where they redirect to
-- [ ] Send list of URLs to an endpoint to process them
-- [ ] Send list of images to an endpoint to process them
-- [ ] Have this process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
+- [x] Write code to get images
+- [x] Write code to get links
+- [x] Write code to get meta information 
+- [x] Identify redirect HTML pages and where they redirect to
+- [x] Send list of URLs to an endpoint to process them
+- [x] Send list of images to an endpoint to process them
+- [ ] Run through a list of URLs
 
 ### Database
 
-- [ ] Create pages
-  - [ ] account for github URLs
-  - [ ] account for redirect pages
+- [ ] Replace strings with IDs in store.js
+- [x] Create pages (basic table structure in comments right now)
+  - [x] account for github URLs
+  - [x] account for redirect pages
   - [ ] add page status: live, dark-deploy, abandoned, tentative-abandoned
 - [ ] Create images
 - [ ] Create tasks
-- [ ] Create a pages log table
+- [ ] Figure out how to log the data, whether one big stream that is searchable or...?
 
 ### URLs
 
-- [ ] Receive the source URL and the list of the urls for this page
-- [ ] Get the stored URLs for this page
+- [x] Receive the source URL and the list of the urls for this page
+- [ ] Get the stored URLs for this page from the database
 - [ ] Compare to what is in the database for this source URL
-- [ ] Store the data
 - [ ] Log which URLs were added/removed from this page
 
 ### Images
  
-- [ ] Receive the source url and list of images for this page
-- [ ] Get the images for this source URL
+- [x] Receive the source url and list of images for this page
+- [ ] Get the images for this source URL from the database
 - [ ] Compare to what is in the database for this source URL, identify abandoned images?
     - [ ] Log which images are added and which are removed
 - [ ] Store them
 - [ ] Log which images were added/removed from this page
+- [ ] handle if there are no images on the page
 
 ### Reports
 
@@ -58,7 +60,7 @@ This is a bigger list than I originally intended. Can you say feature creep?
   - [ ] If you go to /scrape and there's no URLs in the database, ask for a URL
     - [ ] store the URL and queue it for scraping
   - [ ] If there are URLs, show the scraping queue
-- [ ] Abandoned page report
+- [ ] Abandoned page report - a list of new pages discovered that can be marked as "dark deployed" or abandoned instead of tentative-abandoned.
 - [ ] All page report (how to do this so that it doesn't suck)
 - [ ] All tasks report
 - [ ] Images Report
@@ -83,12 +85,17 @@ Yeah, yeah, yeah, there are a million task managers. I am customizing and playin
 
 ### Later Stuff
 
+Extra Features
+
+- [ ] How to add code hooks, that allow adding in extra functionality dynamically without screwing up the source?
+  - [ ] obfuscate the github url code away from the html.links functionality
+
 Monitoring
 
 - [ ] watch for github issues with docs pages and add tasks automatically
 - [ ] watch specific private github repos for builds and make tasks from them to update documentation - prioritize at top of the task list
 
-Extra Features
+Scraper
 
-- [ ] How to add code hooks, that allow adding in extra functionality dynamically without screwing up the source?
-  - [ ] obfuscate the github url code away from the html.links functionality
+- [ ] Identify .htaccess/other redirects
+- [ ] Have the scraper process [run on a schedule](http://blog.nodejitsu.com/npmawesome-agenda/)
