@@ -18,20 +18,20 @@ This is a bigger list than I originally intended. Can you say feature creep?
 
 ### Scraper
 
-- [ x ] Write code to get images
-- [ x ] Write code to get links
-- [ x ] Write code to get meta information 
-- [ x ] Identify redirect HTML pages and where they redirect to
-- [ x ] Send list of URLs to an endpoint to process them
-- [ x ] Send list of images to an endpoint to process them
+- [x] Write code to get images
+- [x] Write code to get links
+- [x] Write code to get meta information 
+- [x] Identify redirect HTML pages and where they redirect to
+- [x] Send list of URLs to an endpoint to process them
+- [x] Send list of images to an endpoint to process them
 - [ ] Run through a list of URLs
 
 ### Database
 
 - [ ] Replace strings with IDs in store.js
-- [ ] Create pages
-  - [ ] account for github URLs
-  - [ ] account for redirect pages
+- [x] Create pages (basic table structure in comments right now)
+  - [x] account for github URLs
+  - [x] account for redirect pages
   - [ ] add page status: live, dark-deploy, abandoned, tentative-abandoned
 - [ ] Create images
 - [ ] Create tasks
@@ -39,14 +39,14 @@ This is a bigger list than I originally intended. Can you say feature creep?
 
 ### URLs
 
-- [ x ] Receive the source URL and the list of the urls for this page
+- [x] Receive the source URL and the list of the urls for this page
 - [ ] Get the stored URLs for this page from the database
 - [ ] Compare to what is in the database for this source URL
 - [ ] Log which URLs were added/removed from this page
 
 ### Images
  
-- [ x ] Receive the source url and list of images for this page
+- [x] Receive the source url and list of images for this page
 - [ ] Get the images for this source URL from the database
 - [ ] Compare to what is in the database for this source URL, identify abandoned images?
     - [ ] Log which images are added and which are removed
